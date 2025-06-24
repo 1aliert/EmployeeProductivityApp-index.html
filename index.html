@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>مراقبة إنتاجية الموظفين</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="login-section">
+        <div class="login-card">
+            <h2>تسجيل الدخول</h2>
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="username">اسم المستخدم:</label>
+                    <input type="text" id="username" name="username" required />
+                </div>
+                <div>
+                    <label for="password">كلمة المرور:</label>
+                    <input type="password" id="password" name="password" required />
+                </div>
+                <button type="submit" class="login-button">دخول</button>
+            </form>
+            <div id="login-error"></div>
+        </div>
+    </div>
+
+    <div id="main-app" class="hidden">
+        <header>
+            <h1>الانتاج اليومي </h1>
+            <button id="logout-button" class="logout-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="icon"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="17 17 22 12 17 7"/><line x1="22" x2="10" y1="12" y2="12"/></svg>
+                <span>تسجيل الخروج</span>
+            </button>
+        </header>
+
+        <main class="container">
+            <div id="message-display" class="hidden"></div>
+
+            <section id="product-input-section">
+                <h2>إدخال المنتجات</h2>
+                <form id="product-form" class="space-y-4">
+                    <div>
+                        <label for="workerName">اسم العامل:</label>
+                        <input type="text" id="workerName" name="workerName" required />
+                    </div>
+
+                    <div>
+                        <label for="mixType">نوع الخلطة:</label>
+                        <input type="text" id="mixType" name="mixType" required />
+                    </div>
+
+                    <div>
+                        <label for="productDate">التاريخ:</label>
+                        <input type="date" id="productDate" name="productDate" required />
+                    </div>
+
+                    <div class="quantity-inputs">
+                        <div>
+                            <label for="quantityCarton"> كرتون:</label>
+                            <input type="number" id="quantityCarton" name="quantityCarton" min="0" value="0" />
+                        </div>
+                        <div>
+                            <label for="quantityBox">كمية علبة:</label>
+                            <input type="number" id="quantityBox" name="quantityBox" min="0" value="0" />
+                        </div>
+                        <div>
+                            <label for="quantityTang">كمية تانج:</label>
+                            <input type="number" id="quantityTang" name="quantityTang" min="0" value="0" />
+                        </div>
+                        <div>
+                            <label for="quantityQuti">كمية قوطي:</label>
+                            <input type="number" id="quantityQuti" name="quantityQuti" min="0" value="0" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="productNotes">ملاحظات:</label>
+                        <textarea id="productNotes" name="productNotes"></textarea>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" id="add-product-button" class="form-button form-button-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="icon"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                            <span>إضافة منتج</span>
+                        </button>
+                        <button type="button" id="cancel-edit-button" class="form-button form-button-secondary hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="icon"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                            <span>إلغاء التعديل</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="products-table-section">
+                <h2>قائمة المنتجات المدخلة</h2>
+                <div class="table-container">
+                    <table id="products-table">
+                        <thead>
+                            <tr>
+                                <th>اسم العامل</th>
+                                <th>نوع الخلطة</th>
+                                <th>التاريخ</th>
+                                <th>كمية كرتون</th>
+                                <th>كمية علبة</th>
+                                <th>كمية تانج</th>
+                                <th>كمية قوطي</th>
+                                <th>الكمية الإجمالية</th>
+                                <th>تعديل</th>
+                                <th>حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- سيتم تعبئته ديناميكياً -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-products-message" class="text-center text-gray-500 mt-4 hidden">لا توجد منتجات مدخلة حتى الآن.</p>
+            </section>
+
+            <section id="calculation-display-section">
+                <h2>نتائج الحسابات</h2>
+                <div id="calculation-results" class="space-y-4">
+                    <p class="text-center text-gray-500">لا توجد نتائج حسابات بعد.</p>
+                </div>
+                <div class="export-buttons">
+                    <button id="export-excel-btn" class="export-button excel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="icon"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h2"/><path d="M8 17h2"/><path d="M14 13h2"/><path d="M14 17h2"/></svg>
+                        <span>تصدير النتائج (Excel)</span>
+                    </button>
+                    <button id="export-whatsapp-btn" class="export-button whatsapp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M11 8h6"/><path d="M11 12h6"/><path d="M7 8h0"/><path d="M7 12h0"/></svg>
+                        <span>تصدير إلى واتساب</span>
+                    </button>
+                    <button id="export-telegram-btn" class="export-button telegram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="icon"><path d="M17 17 22 12 17 7"/><line x1="22" x2="10" y1="12" y2="12"/></svg>
+                        <span>تصدير إلى تيليجرام (محاكاة)</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
