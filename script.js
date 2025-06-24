@@ -343,9 +343,9 @@ function exportToWhatsApp() {
         whatsappMessage += '\n';
     }
 
-    whatsappMessage += "تاريخ التقرير: " + new Date().toLocaleDateString('ar-SA') + "\n";
+    whatsappMessage += "تاريخ التقرير: " + new Date().toLocaleDateString('en-US') + "\n";
     whatsappMessage += "---------------------------------\n";
-    whatsappMessage += "تم إنشاء هذا التقرير تلقائيًا من تطبيق مراقبة الإنتاجية.";
+    whatsappMessage += "تم إنشاء هذا التقرير تلقائيًا .";
 
     const encodedMessage = encodeURIComponent(whatsappMessage);
     const whatsappUrl = `https://wa.me/?text=${encodedMessage}`; // Universal WhatsApp link
