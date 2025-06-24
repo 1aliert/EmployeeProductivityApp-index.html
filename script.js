@@ -326,7 +326,7 @@ function exportToWhatsApp() {
         return;
     }
 
-    let whatsappMessage = "📊 *تقرير إنتاجية الموظفين* 📊\n\n";
+    let whatsappMessage = "📊 *تقريرالعمل اليومي* 📊\n\n";
 
     for (const workerName in results) {
         whatsappMessage += `👤 *اسم العامل:* ${workerName}\n`;
